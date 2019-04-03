@@ -10,7 +10,7 @@ INNER JOIN station s2 ON t.end_station_id = s2.station_id)
 select
 	cities.city,
 	COUNT(cities.trip_id),(SELECT ctn from CITY_TRIPS_COUNT),
-		round(1.0 * COUNT(cities.trip_id) / (SELECT ctn from CITY_TRIPS_COUNT), 4)
+		round(1.0 * COUNT(cities.trip_id) / (SELECT ctn from CITY_TRIPS_COUNT), 4) rate
 from
 	(
 		SELECT t.id as trip_id,
@@ -29,4 +29,5 @@ UNION
 		t.end_station_id = s.station_id) as cities
 GROUP by
 	cities.city
+ORDER by rate desc
 
