@@ -1,11 +1,13 @@
 WITH RECURSIVE
 	days_range(x) AS (
-		SELECT MIN(STRFTIME('%s', datetime(trip.start_time))) FROM trip
+		SELECT CAST(MIN(STRFTIME('%s', datetime(trip.start_time))) AS INT) FROM trip
 		UNION
 				SELECT x + 60*60*24 FROM days_range WHERE x <= (SELECT MAX(STRFTIME('%s', datetime(trip.end_time))) FROM trip)
+																
 --		SELECT x + 60*60*24 FROM days_range WHERE x <=  
 	)
-SELECT dr.x * 1000 as 'year_start' from days_range dr;
+SELECT DATETIME(dr.x, 'unixepoch') as 'day' from days_range dr;
+
 
 /*SELECT
 	STRFTIME('%Y', datetime(t.start_time)) as 'year_start',
