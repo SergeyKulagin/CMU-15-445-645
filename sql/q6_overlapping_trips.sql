@@ -14,5 +14,5 @@ INNER JOIN trip t2 on
 	t1.bike_id = t2.bike_id
 WHERE
 	(t1.bike_id BETWEEN 100 and 200)
-	and t2.id <> t1.id
+	and t1.id > t2.id
 	and diff > 0
